@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "b0cc1940-191b-4afb-91db-05e5b8ada915",
+		"name": "Simple API",
+		"description": "A simple API to learn how to write OpenAPI Specification",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "persons",
+			"item": [
+				{
+					"name": "Gets some persons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://localhost:8080/persons?pageSize={{pageSize}}&pageNumber={{pageNumber}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons"
+							],
+							"query": [
+								{
+									"key": "pageSize",
+									"value": "{{pageSize}}"
+								},
+								{
+									"key": "pageNumber",
+									"value": "{{pageNumber}}"
+								}
+							]
+						},
+						"description": "Returns a list containing all persons. The list supports paging."
+					},
+					"response": []
+				},
+				{
+					"name": "Creates a person",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "The person to create."
+						},
+						"url": {
+							"raw": "https://localhost:8080/persons",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons"
+							]
+						},
+						"description": "Adds a new person to the persons list."
+					},
+					"response": []
+				},
+				{
+					"name": "Gets a person",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://localhost:8080/persons/:username",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username"
+								}
+							]
+						},
+						"description": "Returns a single person for its username."
+					},
+					"response": []
+				},
+				{
+					"name": "Deletes a person",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://localhost:8080/persons/:username",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username"
+								}
+							]
+						},
+						"description": "Delete a single person identified via its username"
+					},
+					"response": []
+				}
+			],
+			"description": "Folder for persons"
+		}
+	]
+}
