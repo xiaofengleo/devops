@@ -16,7 +16,7 @@ before_script:
 - node_modules/.bin/newman --version
 script:
 - nosetests
-- docker build -t my_docker_reposetory/swagger_server:1.0.0 .
+- docker build -t devops-docker/swagger_server:1.0.0 .
 - docker run --name example_api -d -t -p 127.0.0.1:8080:8080 my/swagger-spring-example:1.0.0
 - docker ps
 - count=0 && until $(curl --output /dev/null --silent --head --fail http://localhost:8080);
@@ -24,8 +24,8 @@ script:
   fi; done
 after_success:
 - docker login -u $DOCKER_USER -p $DOCKER_PASS
-- docker tag my_docker_reposetory/swagger-spring-example:1.0.0 my_docker_reposetory/swagger-spring-example:1.0.0
-- docker push my_docker_reposetory/swagger-spring-example:1.0.0
+- docker tag devops-docker/swagger-spring-example:1.0.0 devops-docker/swagger-spring-example:1.0.0
+- docker push devops-docker/swagger-spring-example:1.0.0
 env:
   global:
   - secure: l8n5AFwAY/XD9saNc3FQp+t2azZ2JeKPlIs4JCLH86v4hhpxZbpQpZPAjCddCH/5eFFaxrGRI7GCltvZzO2Z4eQVSUH8NREYXhgMUnWv8DKup/g4cs9ZLd1B6kIlY7gIDonrzogTFO040x3k3Zt6b6xdn3hA186Q+JwYMj42E7j/F4VGD0nFr11PpqOOdBC7Sp/0ERhT0y2gcucCu9tWRzylYyufjfkmm4KCa8HwaCC7Iyw29kd2azZyZ1xRuzhKI7zb4XwAKRfbMN+YnEID1lAUvUJUrlatfbh4uTQA1MfLXo7NqIjwKaiNdp9GzJlw9CBKxFPY5pSPt2YwfznFAla8YkjQXFEadraYbAjnVJ8cPY4jT16OzWMCXHJdWSvr4xEG6z3SZGgRs+yEMoRTfhBn6IxucTx6QdMVG7cPauE+V3jxr2HrXMQ4AZSOh0mhdPi1yOSNQX/JDarj08VtNy35B4yPdZrKDQ/sYOm4FYRwNIknCitII2jdGygH/bnVOH/PIG1XMYtz32dsDfGeP3Zs5me0iiNSCWpDy+LVPj5PEQ7OzMNDQF9AmuIvmm6wXl0LrTKYWOe+p6zbK6lfd43+UmSYbzUo52pzdIaixbc1umifAObu/xvLCc5ovgO4JDW9RQU9QmOoGSEnoLKO2VBaZDMNo8YdRfzkQoUezHg=
