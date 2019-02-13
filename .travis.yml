@@ -8,6 +8,8 @@ before_install:
 - docker version
 - docker info
 install:
+- pip install nose
+- pip install Flask-Testing
 - npm install newman
 - pip install -r requirements.txt
 before_script:
