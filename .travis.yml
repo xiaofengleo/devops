@@ -3,11 +3,13 @@ services:
 - docker
 language: python
 python:
-- '3.2'
+- '3.5'
 before_install:
 - docker version
 - docker info
 install:
+- pip install nose
+- pip install Flask-Testing
 - npm install newman
 - pip install -r requirements.txt
 before_script:
@@ -16,16 +18,16 @@ before_script:
 - node_modules/.bin/newman --version
 script:
 - nosetests
-- docker build -t devops-docker/swagger_server:1.0.0 .
-- docker run --name example_api -d -t -p 127.0.0.1:8080:8080 my/swagger-spring-example:1.0.0
+- docker build -t liaoxiaofeng/devops-docker:swagger_server .
+- docker run --name example_api -d -t -p 127.0.0.1:8080:8080 liaoxiaofeng/devops-docker:swagger_server
 - docker ps
 - count=0 && until $(curl --output /dev/null --silent --head --fail http://localhost:8080);
   do printf '.' && sleep 3 && count=$((count+1)) && if [ $count -gt 5 ]; then break;
   fi; done
 after_success:
 - docker login -u $DOCKER_USER -p $DOCKER_PASS
-- docker tag devops-docker/swagger-spring-example:1.0.0 devops-docker/swagger-spring-example:1.0.0
-- docker push devops-docker/swagger-spring-example:1.0.0
+- docker tag liaoxiaofeng/devops-docker:swagger_server liaoxiaofeng/devops-docker:swagger_server
+- docker push liaoxiaofeng/devops-docker:swagger_server
 env:
   global:
   - secure: KleZU5Dh8/b+NEQeUbEgwa0pU78lgG72yjq22QiyoDX40Os5MlOcirtHvqL+EVewPridLUfRaLncm8Xwy1enyhQSrruwEbx7+6fz4lMEFkAv9LLsE3jsZk3WYRbwqlQgmJ+ZVAbTd06OSN9s79XpsVKC8Gc1ngaGPZK9hWvwV8u0CIWNLDKLBo/bDV2nzY/Sr9gpbgg9HNwJMXeaVbvcI2yA+6PZAe0/BxvnslJqjG5vhIHT4BL5zJcbnQnTbSvgjjcPUWG1afj0DWyYsRvGOLqPwhk2R3cprtBYqOXNvF0xnSEjtD/etdOwwwfn0T6dOSsiRRdpQPbxnSbnEW+ePv/iVYJVucFT+1aqWC/kDuBDFkJnqmM7JbiPFohzV2dir1oY0qmqf1NJMwKJeccJH/4cwjkPVOoDXcFpgwM3rvEsZgvjwq2YQEFVMchtq/7MFvrT9/wWR0/8ny3FkvPIygMWaBs2j25NvJappxX39CGEp3tPhHpAWdluyurOh61WOJR08aCS0Pm8gYd63jIRM6XUaiBFpgjspaGy5ooJDzFRv90BY/kfsVyNc2aadeeO8q5gRM1h/CONnBa3M0B7CJXsAFbuy+p1hzCMdtCm+rbKKCjqmlY72E0kcgrUfWjKEVo9mgO2yFWmwD5JIXTv3AY9kaAB+tBKWClEqABmeG4=
